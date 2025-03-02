@@ -1,3 +1,4 @@
+const PORT = 3000;
 const express = require("express");
 const http = require("http");
 const path = require("path");
@@ -6,7 +7,14 @@ const { Server } = require("socket.io");
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server, { cors: { origin: "*" } });
+const io = new Server(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"],
+        allowedHeaders: ["Content-Type"],
+        credentials: true
+    }
+});
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -501,6 +509,6 @@ io.on("connection", socket => {
     });
 });
 
-server.listen(3000, "127.0.0.1", () => {
-    console.log("Server running on http://127.0.0.1:3000");
+server.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server running on http://0.0.0.0:${PORT}`);
 });

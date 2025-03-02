@@ -1,4 +1,6 @@
-const socket = io("http://127.0.0.1:3000");
+const socket = io("https://breakpong-server.onrender.com", {
+    transports: ["websocket", "polling"]
+});
 
 const lobbyDiv = document.getElementById("lobby");
 const roomsList = document.getElementById("roomsList");
